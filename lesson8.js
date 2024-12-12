@@ -41,23 +41,32 @@ function getIndexes(nums, target) {
 }
 
 // Задание 5
-function getLongString(strs){
-    let prefix = strs[0];
-    while (prefix.length >= 2) {
-        let flag = true;
-        for (let i = 1; i <strs.length; i++){
-            if (!strs[i].includes(prefix)) {
-                prefix = prefix.substring(1);
-                flag = false;
-                break;
+function getLongString(arr) {
+    if (arr.length === 0) return "";
+    let result = "";
+
+    function pairfinder(substring) {
+        return arr.every(word => word.includes(substring));
+    }
+
+    const firstWord = arr[0];
+    for (let i = 0; i < firstWord.length; i++) {
+        for (let j = i + 1; j <= firstWord.length; j++) {
+            const substring = firstWord.slice(i, j);
+            if (pairfinder(substring) && substring.length > result.length) {
+                result = substring;
             }
         }
-        if (flag) 
-            break;
     }
-    if (prefix.length >= 2){
-        return prefix;
-    } else{
-        return "";
+    if (result.length >= 2){ 
+        return result; 
+    } else { 
+        return ""; 
     }
 }
+
+// Тесты
+console.log(getLongString(["цветок", "поток", "хлопок"])); // Ожидается "ок"
+console.log(getLongString(["собака", "гоночная машина", "машина"])); // Ожидается ""
+console.log(getLongString(["столовая", "столб", "столешница"])); // Ожидается "стол"
+console.log(getLongString(["мусор", "сорняк"])); // Ожидается "сор"
