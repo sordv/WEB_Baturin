@@ -3,205 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="assets/styles/style.css">
-    <title>Батурин ЛБ-4</title>
+	<link rel="stylesheet" href="style.css">
+    <title>Батурин ЛБ-12</title>
 </head>
 <body>
-	<header class="header">
-		<div class="wrapper">
-			<div class="header_content">
-				<input type="checkbox" id="menu1" class="hidden_menu_checkbox">
-      			<label for="menu1" class="hidden_menu"></label>
+	<p class="name">Выбор пиццы</p>
 
-				<div class="header_name">
-					<a href="/src" class="header_name_link">IT WEBSITE</a>
-				</div>
+	<div class="pizza_configurator">
+		<div class="pizza_configurator_block">
+			<p class="subname">Выберите пиццу:</p>
+	
+			<select id="pizza_name">
+				<option value="pizza_margarita">Маргарита</option>
+				<option value="pizza_pepperoni">Пепперони</option>
+				<option value="pizza_bavarian">Баварская</option>
+			</select>
+		</div>
+	
+		<div class="pizza_configurator_block">
+			<p class="subname">Выберите размер:</p>
+	
+			<select id="pizza_size">
+				<option value="size_large">Большая</option>
+				<option value="size_small">Маленькая</option>
+			</select>
+		</div>
+	
+		<div class="pizza_configurator_block">
+			<p class="subname">Дополнительно:</p>
 
-				<nav class="header_navigation">
-					<ul class="header_navigation_list">
-						<li class="header_navigation_item">
-							<a href="" class="header_navigation_link">Services</a>
-						</li>
-						<li class="header_navigation_item">
-							<a href="" class="header_navigation_link">Media</a>
-						</li>
-						<li class="header_navigation_item">
-							<a href="" class="header_navigation_link">Cases</a>
-						</li>
-						<li class="header_navigation_item">
-							<a href="" class="header_navigation_link">FAQ</a>
-						</li>
-						<li class="header_navigation_item">
-							<a href="" class="header_navigation_link">Contacts</a>
-						</li>
-					</ul>
-				</nav>
-
-				<div class="header_contacts">
-					<div class="header_contacts_item">
-						<img src="assets/svg/headerPhone.svg" alt="Phone" class="icon_tiny">
-						<span class="header_contacts_text">+7 (111) 111 11 11</span> 
-        				<span class="header_contacts_last_number">+7 (111) 111 11 11</span> 
-      				</div> 
-      				<div class="header_contacts_item"> 
-        				<img src="assets/svg/headerMail.svg" alt="Mail" class="icon_tiny"> 
-        				<span class="header_contacts_text">itcompany@mail.com</span> 
-      				</div> 
-				</div>
-
-				<div class="hidden_content">
-					<h1>IT WEBSITE</h1>
-
-					<nav class="header_navigation_hidden">
-						<ul class="header_navigation_list_hidden">
-							<li class="header_navigation_item">
-								<a href="" class="header_navigation_link_hidden">Services</a>
-							</li>
-							<li class="header_navigation_item">
-								<a href="" class="header_navigation_link_hidden">Media</a>
-							</li>
-							<li class="header_navigation_item">
-								<a href="" class="header_navigation_link_hidden">Cases</a>
-							</li>
-							<li class="header_navigation_item">
-								<a href="" class="header_navigation_link_hidden">FAQ</a>
-							</li>
-							<li class="header_navigation_item">
-								<a href="" class="header_navigation_link_hidden">Contacts</a>
-							</li>
-						</ul>
-					</nav>
-
-					<div class="header_contacts_hidden">
-						<div class="header_contacts_item_hidden">
-							<img src="assets/svg/headerPhone.svg" alt="Phone" class="icon_tiny_2">
-							<span class="header_contacts_text_hidden">+7 (111) 111 11 11</span>
-						</div>
-						<div class="header_contacts_item_hidden">
-							<img src="assets/svg/headerPhone.svg" alt="Phone" class="icon_tiny_2">
-							<span class="header_contacts_text_hidden">+7 (111) 111 11 11</span>
-						</div>
-						<div class="header_contacts_item_hidden">
-							<img src="assets/svg/headerMail.svg" alt="Mail" class="icon_tiny_2">
-							<span class="header_contacts_text_hidden">itcompany@mail.com</span>
-						</div> 
-					</div>
-				</div>
+			<div class="checkboxes">
+				<label class="checkbox">
+                    <input type="checkbox" value="extra_creamy_mozarella">
+                    <span>Сливочная моцарелла</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" value="extra_cheese_board">
+                    <span>Сырный борт</span>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" value="extra_cheddar_parmesan">
+                    <span>Чедер и пармезан</span>
+                </label>
 			</div>
 		</div>
-	</header>
-	<main class="main">
-		<div class="introduction">
-			<div class="wrapper">
-				<section class="introduction_greeting">
-					<h1>Development of <span class = "blue_text">mobile applications</span> and <span class = "blue_text">web services</span> of any complexity</h1>
-                	<p>We create mobile applications for iOS, Android that transfer your business to mobile apllications of your customers' devices</p>
-				</section>
-				<section class="introduction_form">
-					<h3>Leave your contacts and we will call you back within 30 minutes</h3>
-					<form>
-						<div>
-							<label for = "phone" class="introduction_form_sign">Phone number</label>
-							<input type = "phone" id = "phone" name = "phone" class="introduction_form_item introduction_form_item_flag" placeholder = "+7 (111) 111 11 11" required>
-						</div>
-						<div>
-							<label for = "name" class="introduction_form_sign">Full name</label>
-							<input type = "name" id = "name" name = "name" class="introduction_form_item" placeholder = "Иван Иванов" required>
-						</div>
-						<button type="submit">Get consultation</button>
-					</form>
-				</section>
-			</div>
-		</div>
-		<div class="competence">
-			<div class="wrapper">
-				<section class="competence_info">
-					<div class="competence_greeting">
-						<h1>Full Development Cycle</h1>
-						<p>We use proven technologies</p>
-					</div>
-					<div class="competence_technologies">
-						<h3>WEB</h3>
-						<p>PHP <span>/</span> Javascript <span>/</span> Node.JS <span>/</span> Web Socket <span>/</span> Socket.io <span>/</span> Vue.js <span>/</span> Nuxt <span>/</span> MySQL <span>/</span> Laravel <span>/</span> GO lang <span>/</span> django <span>/</span> Python</p>
-						<h3>Mobile</h3>
-						<p>Swift <span>/</span> Kotlin <span>/</span> Alamofire <span>/</span> Firebase <span>/</span> CoreData <span>/</span> Room <span>/</span> Realm <span>/</span> Coroutine <span>/</span> RxJava <span>/</span> RxSwift <span>/</span> Unit Test <span>/</span> Navigation</p>
-					</div>
-				</section>
-				<section>
-					<nav>
-						<li class="competence_navigation_item">
-							<a href = "" class="competence_navigation_link">iOS development</a>
-							<img src="assets/svg/right_arrow.svg" alt="More" class="icon_tiny">
-						</li>
-						<li class="competence_navigation_item">
-							<a href = "" class="competence_navigation_link">Android development</a>
-							<img src="assets/svg/right_arrow.svg" alt="More" class="icon_tiny">
-						</li>
-						<li class="competence_navigation_item">
-							<a href = "" class="competence_navigation_link">Web development</a>
-							<img src="assets/svg/right_arrow.svg" alt="More" class="icon_tiny">
-						</li>
-						<li class="competence_navigation_item">
-							<a href = "" class="competence_navigation_link">UI/UX design</a>
-							<img src="assets/svg/right_arrow.svg" alt="More" class="icon_tiny">
-						</li>
-						<li class="competence_navigation_item">
-							<a href = "" class="competence_navigation_link">Testing</a>
-							<img src="assets/svg/right_arrow.svg" alt="More" class="icon_tiny">
-						</li>
-						<li class="competence_navigation_item">
-							<a href = "" class="competence_navigation_link">Launch</a>
-							<img src="assets/svg/right_arrow.svg" alt="More" class="icon_tiny">
-						</li>
-						<li class="competence_navigation_item">
-							<a href = "" class="competence_navigation_link">IT consulting</a>
-							<img src="assets/svg/right_arrow.svg" alt="More" class="icon_tiny">
-						</li>
-					</nav>
-				</section>
-			</div>
-		</div>
-	</main>
-	<footer class="footer">
-		<div class="wrapper_footer">
-			<div class="footer_content">
-				<h1>IT WEBSITE</h1>
-				<section class="footer_contacts">
-					<div class="footer_contacts_item">
-						<div class="footer_contacts_sign">
-							<img src="assets/svg/footerPhone.svg" alt="phone" class="icon_tiny">
-							<h5>Contact nums</h5>
-						</div>
-						<h4>+7 (778) 395 90 26</h4>
-					</div>
-					<div class="footer_contacts_item">
-						<div class="footer_contacts_sign">
-							<img src="assets/svg/footerMail.svg" alt="mail" class="icon_tiny">
-							<h5>Post</h5>
-						</div>
-						<h4>mail@mail.com</h4>
-					</div>
-					<div class="footer_contacts_item">
-						<div class="footer_contacts_sign">
-							<img src="assets/svg/footerPin.svg" alt="pin" class="icon_tiny">
-							<h5>Address</h5>
-						</div>
-						<h4>City city, steet st. 90</h4>
-					</div>
-					<div class="footer_contacts_item">
-						<div class="footer_contacts_sign">
-							<img src="assets/svg/footerFile.svg" alt="file" class="icon_tiny">
-							<h5>Leave a request</h5>
-						</div>
-						<h4>Leave a request</h4>
-					</div>
-				</section>
-				<div class = "footer_country">
-					<img src="assets/svg/footerKazakhstan.svg" alt="kz" class="footer_country">
-					<p>We work throught world</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+	</div>
+
+	<button class="pizza_result_button">Рассчитать стоимость и калорийность собранной пиццы</button>
+
+	<div id="pizza_calculate_result">
+		<p id="price_result"></p>
+		<p id="calories_result"></p>
+	</div>
+
+	<script src="pizza_calculate.js"></script>
 </body>
 </html>
