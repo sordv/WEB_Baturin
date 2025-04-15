@@ -1,87 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Батурин ЛБ-13</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Батурин ЛБ-14</title>
+    <link rel="stylesheet" href="/src/assets/styles/style.css">
 </head>
 <body>
-    <div class="pizza_configurator">
-        <div class="pizza_configurator_block">
-			<p class="subname">Выберите пиццу</p>
+<div class="test" style="color: blue">
+    test
+</div>
 
-            <div class="card_menu">
-				<input type="radio" name="pizza" id="margarita" class="pizza_radio" checked data-product="margarita">
-
-				<label for="margarita" class="card">
-                    <img src="assets/pizza_margarita.png" alt="Маргарита" class="image">
-                    <span class="subname_mini">Маргарита</span>
-                    <span class="text" id="price_margarita">500 ₽</span>
-                </label>
-                
-                <input type="radio" name="pizza" id="pepperoni" class="pizza_radio" data-product="pepperoni">
-                <label for="pepperoni" class="card">
-                    <img src="assets/pizza_pepperoni.png" alt="Пепперони" class="image">
-                    <span class="subname_mini">Пепперони</span>
-                    <span class="text" id="price_pepperoni">550 ₽</span>
-                </label>
-        
-                <input type="radio" name="pizza" id="bavarian" class="pizza_radio" data-product="bavarian">
-                <label for="bavarian" class="card">
-                    <img src="assets/pizza_bavarian.png" alt="Баварская" class="image">
-                    <span class="subname_mini">Баварская</span>
-                    <span class="text" id="price_bavarian">600 ₽</span>
-                </label>
-			</div>
-        </div>
-
-        <div class="pizza_configurator_block">
-			<div class="choice_size">
-				<p class="subname">Выберите размер</p>
-
-				<div class="size_switch">
-					<input type="checkbox" id="size_toggle" class="switch_input">
-					<label for="size_toggle" class="switch_label">
-						<span class="switch_text">Маленькая</span>
-						<span class="switch_text">Большая</span>
-						<span class="switch_handle"></span>
-					</label>
-				</div>
-			</div>
-
-			<div class="choice_extras">
-				<p class="subname">Добавить по вкусу</p>
-
-				<div class="card_menu card_menu_small">
-					<input type="checkbox" id="cheese_board" class="extra_checkbox" data-product="cheese_board">
-					<label class="card" for="cheese_board">
-						<img src="assets/extra_cheese_board.png" alt="Сырный борт" class="image">
-						<span class="subname_mini">Сырный борт</span>
-						<span class="subname" id="price_cheese_board">189 ₽</span>
-					</label>
-					
-					<input type="checkbox" id="creamy_mozarella" class="extra_checkbox" data-product="creamy_mozarella">
-					<label class="card" for="creamy_mozarella">
-						<img src="assets/extra_creamy_mozarella.png" alt="Сливочная моцарелла" class="image">
-						<span class="subname_mini">Сливочная моцарелла</span>
-						<span class="subname" id="price_creamy_mozarella">99 ₽</span>
-					</label>
-			
-					<input type="checkbox" id="cheddar_parmesan" class="extra_checkbox" data-product="cheddar_parmesan">
-					<label class="card" for="cheddar_parmesan">
-						<img src="assets/extra_cheddar_parmesan.png" alt="Чеддер и пармезан" class="image">
-						<span class="subname_mini">Чеддер и пармезан</span>
-						<span class="subname" id="price_cheddar_parmesan">99 ₽</span>
-					</label>
-				</div>
-			</div>
-
-			<button class="add_to_cart_button">
-				<span class="add_to_cart_text"></span>
-			</button>
-        </div>
-	</div>
-	<script src="scripts/pizza_calculate.js"></script>
+<script src="index.js"></script>
 </body>
 </html>
