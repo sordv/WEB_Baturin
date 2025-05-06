@@ -71,21 +71,21 @@ export class Catalog {
         window.history.pushState({}, '', url)
     }
 
-    loadItems () {
+    async loadItems () {
         try {
-            this.#getItems({ limit: this.limit, page: this.#page })
-                .then(({ items, total }) => {
-                    this.#total = total
-                    this.renderItems(items)
-                    this.renderPagination()
-        })
+            const { items, total } = await this.#getItems({ limit: this.limit, page: this.#page })
+            this.#total = total
+            this.renderItems(items)
+            this.renderPagination()
         } catch (error) {
-            console.log(error);
+            console.error('Loading items failed with: ', error)
+            this.#itemsEl.innerHTML = '<div class="error">Loading items failed!</div>'
+            this.#paginationEl.innerHTML = ''
         }
     }
 
     renderItems (items) {
-        this.#itemsEl.innerHTML = items.map(this.#renderItem).join('')
+        this.#itemsEl.innerHTML = items.length > 0 ? items.map(this.#renderItem).join('') : '<div class="error">No items found</div>'
     }
 
     renderPagination () {

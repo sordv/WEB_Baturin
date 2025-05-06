@@ -11,3 +11,8 @@
 .post-item__title {
     font-weight: 600;
 }
+
+.comment {
+    border: 1px solid black;
+    margin-bottom: 8px;
+}
