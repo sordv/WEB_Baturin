@@ -1,0 +1,3 @@
+<?php
+$secondYear = date("Y");
+?>
