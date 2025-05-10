@@ -1,6 +1,151 @@
 <?php
-$firstYear = date("Y");
-include("secondYear.php");
+echo "<h2>Задание 1:</h2>";
+		
+function task1() {
+	$a = 0;
+	do {
+		echo $a;
+		
+		if ($a == 0) { echo " - это ноль."; }
+        elseif ($a % 2 === 0) { echo " - это четное."; }
+        else { echo " - это нечетное."; };
+				
+		echo "<br>";
+		$a++;
+	} while ($a <= 10);
+};
+		
+task1();
+
+echo "<h2>Задание 2:</h2>";
+		
+$regions = [
+	"Московская область" => ["Москва", "Зеленоград", "Клин"],
+	"Ленинградская область" => ["Санкт-Петербург", "Всеволожск", "Павловск", "Кронштадт"],
+	"Рязанская область" => ["Рязань", "Сасово", "Касимов"]
+];
+
+function task2($regions) {
+	foreach ($regions as $region => $cities) {
+		echo $region.":"."<br>";
+		echo implode(", ", $cities).".";
+		echo "<br>";
+	};
+};
+
+task2($regions);
+
+echo "<h2>Задание 3:</h2>";
+		
+function task3($target) {
+	$letters = [
+		"а" => "a",
+		"б" => "b",
+		"в" => "v",
+		"г" => "g",
+		"д" => "d",
+		"е" => "e",
+		"ё" => "yo",
+		"ж" => "zh",
+		"з" => "z",
+		"и" => "i",
+		"й" => "y",
+		"к" => "k",
+		"л" => "l",
+		"м" => "m",
+		"н" => "n",
+		"о" => "o",
+		"п" => "p",
+		"р" => "r",
+		"с" => "s",
+		"т" => "t",
+		"у" => "u",
+		"ф" => "f",
+		"х" => "h",
+		"ц" => "ts",
+		"ч" => "ch",
+		"ш" => "sh",
+		"щ" => "shch",
+		"ъ" => "",
+		"ы" => "y",
+		"ь" => "",
+		"э" => "e",
+		"ю" => "yu",
+		"я" => "ya",
+	];
+			
+	$target = mb_strtolower($target);
+	$result = strtr($target, $letters);
+	return $result."<br>";
+};
+		
+echo task3("яблоко");
+echo task3("мандарин");
+echo task3("виноград");
+
+echo "<h2>Задание 4:</h2>";
+
+$menu = [
+	"Основная информация",
+	"Фигуры" => [
+		"Квадрат",
+		"Круг",
+		"Ромб"
+	],
+	"Цвета" => [
+		"Теплые" => [
+			"Красный",
+			"Оранжевый"
+		],
+		"Синий"
+	],
+];
+
+function task4($menu) {
+    echo '<ul>';
+	
+    foreach ($menu as $key => $item) {
+        if (is_array($item)) {
+            echo '<li>'.$key.'</li>';
+            task4($item);
+        } else {
+            echo '<li>'.$item.'</li>';
+        }
+    }
+	
+    echo '</ul>';
+}
+
+task4($menu);
+		
+echo "<h2>Задание 5:</h2>";
+		
+		
+echo "<h2>Задание 6:</h2>";
+
+function task6($regions, $letter) {
+    $filteredRegions = [];
+    
+    foreach ($regions as $region => $cities) {
+        $filteredCities = [];
+        
+        foreach ($cities as $city) {
+            if (mb_strtolower(mb_substr($city, 0, 1)) === mb_strtolower($letter)) {
+                $filteredCities[] = $city;
+            }
+        }
+        
+        if (!empty($filteredCities)) {
+            $filteredRegions[$region] = $filteredCities;
+        }
+    }
+    
+    return $filteredRegions;
+};
+
+$filtered = task6($regions, "К");
+task2($filtered);
+
 ?>
 
 <!DOCTYPE html>
@@ -8,128 +153,8 @@ include("secondYear.php");
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Батурин ЛБ-17</title>
+        <title>Батурин ЛБ-18</title>
     </head>
     <body>
-        <?php
-		
-        echo "<h2>Задание 1:</h2>";
-		
-        $a = rand(-10, 10);
-        $b = rand(-10, 10);
-        echo "<p>Исходные значения: a = $a, b = $b</p>";
-		
-        if ($a >= 0 && $b >= 0) {
-            echo "<p>Оба числа положительны - вывести разность</p>";
-			$result = $a - $b;
-        } elseif ($a < 0 && $b < 0) {
-            echo "<p>Оба числа отрицательны - вывести произведение</p>";
-			$result = $a * $b;
-        } else {
-            echo "<p>Числа разных знаков - вывести сумму</p>";
-			$result = $a + $b;
-        }
-		
-		echo "<p>Результат: $result</p>";
-
-        echo "<h2>Задание 2:</h2>";
-		
-		$a = rand(0, 15);
-		echo "<p>Исходное значение a: $a</p>";
-		
-		switch ($a) {
-			case 0: echo "0, ";
-			case 1: echo "1, ";
-			case 2: echo "2, ";
-			case 3: echo "3, ";
-			case 4: echo "4, ";
-			case 5: echo "5, ";
-			case 6: echo "6, ";
-			case 7: echo "7, ";
-			case 8: echo "8, ";
-			case 9: echo "9, ";
-			case 10: echo "10, ";
-			case 11: echo "11, ";
-			case 12: echo "12, ";
-			case 13: echo "13, ";
-			case 14: echo "14, ";
-			case 15: echo "15 ";
-			break;
-			default: echo "invalid value";
-		}
-
-        echo "<h2>Задание 3:</h2>";
-		
-		function sum($a, $b) {
-			return $a + $b;
-		}
-		function subtract($a, $b) {
-			return $a - $b;
-		}
-		function multiply($a, $b) {
-			return $a * $b;
-		}
-		function divide($a, $b) {
-			return $b != 0 ? $a / $b : "Ошибка: деление на ноль!";
-		}
-		
-		$a = 8;
-        $b = 2;
-        echo "<p>Исходные значения: a = $a, b = $b</p>";
-		
-		echo "<p>Сложение: ".sum($a, $b)."</p>";
-		echo "<p>Вычитание: ".subtract($a, $b)."</p>";
-		echo "<p>Умножение: ".multiply($a, $b)."</p>";
-		echo "<p>Деление: ".divide($a, $b)."</p>";
-		
-        echo "<h2>Задание 4:</h2>";
-		
-		function mathOperation($arg1, $arg2, $operation) {
-			switch($operation) {
-				case "sum": return sum($arg1, $arg2);
-				case "subtract": return subtract($arg1, $arg2);
-				case "multiply": return multiply($arg1, $arg2);
-				case "divide": return divide($arg1, $arg2);
-				default: return "operator not found";
-			}
-		}
-		
-		$arg1 = 12;
-		$arg2 = 4;
-		echo "<p>Исходные значения: arg1 = $arg1, arg2 = $arg2</p>";
-		
-		echo "<p>Сложение: ".sum($arg1, $arg2)."</p>";
-		echo "<p>Вычитание: ".subtract($arg1, $arg2)."</p>";
-		echo "<p>Умножение: ".multiply($arg1, $arg2)."</p>";
-		echo "<p>Деление: ".divide($arg1, $arg2)."</p>";
-
-        echo "<h2>Задание 5:</h2>";
-		
-		echo "<p>Получение текущего года разными способами:</p>";
-		// в начале файла определяется переменная
-		echo "<div>".$firstYear."</div>";
-		// значение определяется в файле secondYear.php, который подключен к текущему файлу
-		echo "<div>".$secondYear."</div>";
-		// использование шаблонизатора (файл thirdYear.php)
-		echo "<div><a href = 'thirdYear.php'>Третий способ</a></div>";
-		
-        echo "<h2>Задание 6:</h2>";
-		
-		function exponentiation($val, $pow) {
-			if ($pow == 0) {
-				return 1;
-			}
-			return $val * exponentiation($val, $pow - 1);
-		}
-		
-		$a = 2;
-		$b = 6;
-		echo "<p>$a в степени $b: ".exponentiation($a, $b)."</p>";
-		
-		$a = 15;
-		$b = 0;
-		echo "<p>$a в степени $b: ".exponentiation($a, $b)."</p>";
-		
-        ?>
     </body>
 </html>
