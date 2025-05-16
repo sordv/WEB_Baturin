@@ -1,5 +1,4 @@
 <?php
-require_once 'logs/logger.php';
 
 $imagesDir = 'imgs/images/';
 $miniaturesDir = 'imgs/miniatures/';
@@ -16,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     if (!in_array($fileExtension, $allowedExtensions)) { die('Недопустимое расширение файла!'); }
     
-    $fileName = uniqid() . '.' . $fileExtension;
+    $fileName = basename($file['name']);
     
     if (!move_uploaded_file($file['tmp_name'], $imagesDir . $fileName)) { die('Ошибка при сохранении файла!'); }
     
