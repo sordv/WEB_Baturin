@@ -1,160 +1,57 @@
 <?php
-echo "<h2>Задание 1:</h2>";
-		
-function task1() {
-	$a = 0;
-	do {
-		echo $a;
-		
-		if ($a == 0) { echo " - это ноль."; }
-        elseif ($a % 2 === 0) { echo " - это четное."; }
-        else { echo " - это нечетное."; };
-				
-		echo "<br>";
-		$a++;
-	} while ($a <= 10);
-};
-		
-task1();
+require_once 'logs/logger.php';
 
-echo "<h2>Задание 2:</h2>";
-		
-$regions = [
-	"Московская область" => ["Москва", "Зеленоград", "Клин"],
-	"Ленинградская область" => ["Санкт-Петербург", "Всеволожск", "Павловск", "Кронштадт"],
-	"Рязанская область" => ["Рязань", "Сасово", "Касимов"]
-];
-
-function task2($regions) {
-	foreach ($regions as $region => $cities) {
-		echo $region.":"."<br>";
-		echo implode(", ", $cities).".";
-		echo "<br>";
-	};
-};
-
-task2($regions);
-
-echo "<h2>Задание 3:</h2>";
-		
-function task3($target) {
-	$letters = [
-		"а" => "a",
-		"б" => "b",
-		"в" => "v",
-		"г" => "g",
-		"д" => "d",
-		"е" => "e",
-		"ё" => "yo",
-		"ж" => "zh",
-		"з" => "z",
-		"и" => "i",
-		"й" => "y",
-		"к" => "k",
-		"л" => "l",
-		"м" => "m",
-		"н" => "n",
-		"о" => "o",
-		"п" => "p",
-		"р" => "r",
-		"с" => "s",
-		"т" => "t",
-		"у" => "u",
-		"ф" => "f",
-		"х" => "h",
-		"ц" => "ts",
-		"ч" => "ch",
-		"ш" => "sh",
-		"щ" => "shch",
-		"ъ" => "",
-		"ы" => "y",
-		"ь" => "",
-		"э" => "e",
-		"ю" => "yu",
-		"я" => "ya",
-	];
-			
-	$target = mb_strtolower($target);
-	$result = strtr($target, $letters);
-	return $result."<br>";
-};
-		
-echo task3("яблоко");
-echo task3("мандарин");
-echo task3("виноград");
-
-echo "<h2>Задание 4:</h2>";
-
-$menu = [
-	"Основная информация",
-	"Фигуры" => [
-		"Квадрат",
-		"Круг",
-		"Ромб"
-	],
-	"Цвета" => [
-		"Теплые" => [
-			"Красный",
-			"Оранжевый"
-		],
-		"Синий"
-	],
-];
-
-function task4($menu) {
-    echo '<ul>';
-	
-    foreach ($menu as $key => $item) {
-        if (is_array($item)) {
-            echo '<li>'.$key.'</li>';
-            task4($item);
-        } else {
-            echo '<li>'.$item.'</li>';
+function getImages($directory) {
+    $images = [];
+    $files = scandir($directory);
+    foreach ($files as $file) {
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
+            $images[] = $file;
         }
     }
-	
-    echo '</ul>';
+    return $images;
 }
 
-task4($menu);
-		
-echo "<h2>Задание 5:</h2>";
-		
-		
-echo "<h2>Задание 6:</h2>";
-
-function task6($regions, $letter) {
-    $filteredRegions = [];
-    
-    foreach ($regions as $region => $cities) {
-        $filteredCities = [];
-        
-        foreach ($cities as $city) {
-            if (mb_strtolower(mb_substr($city, 0, 1)) === mb_strtolower($letter)) {
-                $filteredCities[] = $city;
-            }
-        }
-        
-        if (!empty($filteredCities)) {
-            $filteredRegions[$region] = $filteredCities;
-        }
-    }
-    
-    return $filteredRegions;
-};
-
-$filtered = task6($regions, "К");
-task2($filtered);
+$imagesDir = 'imgs/images/';
+$miniaturesDir = 'imgs/miniatures/';
+$images = getImages($imagesDir);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Батурин ЛБ-18</title>
-    </head>
-    <body>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Батурин ЛБ-19</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p class="name">Фотогалерея</p>
+    
+    <!-- Форма загрузки -->
+    <div class="upload_form">
+        <h2>Загрузить новое изображение</h2>
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/jpeg,image/png" required>
+            <button type="submit">Загрузить</button>
+        </form>
+        <p>Максимальный размер файла: 2MB. Допустимые форматы: JPG, PNG.</p>
+    </div>
+    
+    <!-- Галерея -->
+    <div class="gallery">
+        <?php if (empty($images)): ?>
+            <p class="sad">Пока тут пусто :(</p>
+        <?php else: ?>
+            <?php foreach ($images as $image): ?>
+                <div class="gallery_item">
+                    <a href="<?= $imagesDir . $image ?>" target="_blank">
+                        <img src="<?= $miniaturesDir . $image ?>" alt="<?= $image ?>">
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</body>
 </html>
