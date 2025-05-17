@@ -1,57 +1,41 @@
 <?php
-require_once 'logs/logger.php';
+require_once 'db_connect.php';
 
-function getImages($directory) {
-    $images = [];
-    $files = scandir($directory);
-    foreach ($files as $file) {
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
-            $images[] = $file;
-        }
-    }
-    return $images;
-}
-
-$imagesDir = 'imgs/images/';
-$miniaturesDir = 'imgs/miniatures/';
-$images = getImages($imagesDir);
-
+$stmt = $db->query("SELECT * FROM products");
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Батурин ЛБ-19</title>
+    <title>Батурин ЛБ-21</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p class="name">Фотогалерея</p>
-    
-    <!-- Форма загрузки -->
-    <div class="upload_form">
-        <h2>Загрузить новое изображение</h2>
-        <form action="upload.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" accept="image/jpeg,image/png" required>
-            <button type="submit">Загрузить</button>
-        </form>
-        <p>Максимальный размер файла: 2MB. Допустимые форматы: JPG, PNG.</p>
-    </div>
-    
-    <!-- Галерея -->
-    <div class="gallery">
-        <?php if (empty($images)): ?>
-            <p class="sad">Пока тут пусто :(</p>
-        <?php else: ?>
-            <?php foreach ($images as $image): ?>
-                <div class="gallery_item">
-                    <a href="<?= $imagesDir . $image ?>" target="_blank">
-                        <img src="<?= $miniaturesDir . $image ?>" alt="<?= $image ?>">
-                    </a>
+    <p class="catalog_intro">КАТАЛОГ ТОВАРОВ</p>
+    <div class="catalog">
+        <?php foreach ($products as $product): 
+            $avgRating = $db->query("SELECT AVG(rating) FROM reviews WHERE product_id = {$product['id']}")->fetchColumn();
+            $avgRating = $avgRating ? round($avgRating, 1) : 0;
+            $reviewCount = $db->query("SELECT COUNT(*) FROM reviews WHERE product_id = {$product['id']}")->fetchColumn();
+        ?>
+            <a href="product.php?id=<?= $product['id'] ?>" class="product_card">
+                <img src="imgs/<?= $product['id'] ?>.jpg" alt="error">
+
+                <div class="catalog_name">
+                    <?php if ($reviewCount > 0): ?>
+                        <span><?= $product['name'] ?></span>
+                        <span><span class="star">★</span><?= $avgRating ?></span>
+                    <?php else: ?>
+                        <span><?= $product['name'] ?></span>
+                    <?php endif; ?>
                 </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+
+                <p class="price"><?= $product['price'] ?> ₽</p>
+            </a>
+        <?php endforeach; ?>
     </div>
 </body>
 </html>
