@@ -1,57 +1,45 @@
 <?php
-require_once 'logs/logger.php';
+require_once 'db_connect.php';
 
-function getImages($directory) {
-    $images = [];
-    $files = scandir($directory);
-    foreach ($files as $file) {
-        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-        if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
-            $images[] = $file;
+function structure(array $elems, $parentId = null) {
+    $result = array();
+
+    foreach ($elems as $el) {
+        if ($el['parent_id'] == $parentId) {
+            $child = structure($elems, $el['id']);
+            if ($child) {
+                $el['hasChildren'] = true;
+                $el['items'] = $child;
+            } else {
+                $el['hasChildren'] = false;
+                $el['items'] = array();
+            }
+            $result[] = $el;
         }
     }
-    return $images;
+    return $result;
 }
 
-$imagesDir = 'imgs/images/';
-$miniaturesDir = 'imgs/miniatures/';
-$images = getImages($imagesDir);
-
+$data = $db->query("SELECT id, parent_id, name FROM items ORDER BY id");
+$data = $data->fetchAll(PDO::FETCH_ASSOC);
+$menu = structure($data, null)[0];
+$jsonData = json_encode($menu, JSON_UNESCAPED_UNICODE);
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Батурин ЛБ-19</title>
+    <title>Батурин ЛБ-20</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p class="name">Фотогалерея</p>
-    
-    <!-- Форма загрузки -->
-    <div class="upload_form">
-        <h2>Загрузить новое изображение</h2>
-        <form action="upload.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" accept="image/jpeg,image/png" required>
-            <button type="submit">Загрузить</button>
-        </form>
-        <p>Максимальный размер файла: 2MB. Допустимые форматы: JPG, PNG.</p>
-    </div>
-    
-    <!-- Галерея -->
-    <div class="gallery">
-        <?php if (empty($images)): ?>
-            <p class="sad">Пока тут пусто :(</p>
-        <?php else: ?>
-            <?php foreach ($images as $image): ?>
-                <div class="gallery_item">
-                    <a href="<?= $imagesDir . $image ?>" target="_blank">
-                        <img src="<?= $miniaturesDir . $image ?>" alt="<?= $image ?>">
-                    </a>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </div>
+    <div id="list_items"></div>
+
+    <script>
+        const menuData = <?php echo $jsonData; ?>;
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>
